@@ -1,0 +1,63 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def addTwoNumbers(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        def splitList(maxNum,minNum,overflow):
+            result = []
+            flag = 0
+            for i in range(len(minNum)):
+                temp = maxNum[i]+minNum[i] +overflow
+                if (temp)<10:
+                    result.append(temp) 
+                    overflow = 0
+                else:
+                    result.append(temp%10)
+                    overflow = 1
+    
+            if len(maxNum)>len(minNum):
+                for j in range(i+1,len(maxNum)): # 1 + 99
+                    if maxNum[j]+overflow >= 10:
+                        result.append((maxNum[j]+overflow)%10)
+                        overflow = 1
+                    else:
+                        result.append(maxNum[j]+overflow)
+                        overflow = 0
+                if (maxNum[-1]+overflow)>=10:
+                    result.pop()
+                    result.append(0)
+                    result.append(1)
+            else:
+                if (overflow)  & (i == len(minNum)-1): # 5+5
+                    result.append(1)
+            return result
+        
+        if l1 == None:
+            return l2
+        elif l2 == None:
+            return l1
+        else:
+            num1 = []
+            num2 = []
+            overflow = 0
+            while(l1!=None):
+                num1.append(l1.val)
+                l1 = l1.next
+            while(l2!=None):
+                num2.append(l2.val)
+                l2 = l2.next
+            
+            if len(num1)>=len(num2):
+                result = splitList(num1,num2,overflow)
+            else:
+                result = splitList(num2,num1,overflow)
+#            result = ListNode(result)
+        return result
