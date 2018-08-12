@@ -1,0 +1,31 @@
+class Solution:
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        s_list = list(s)
+        s_temp1 = []
+        s_temp2 = []
+        for i in range(len(s_list)):
+            if s_list[i] not in s_temp1:
+                s_temp1.append(s_list[i])
+            else:
+                s_temp2.append(s_temp1)
+                s_temp = []
+                for k in range(len(s_temp1)-1):
+                    if s_temp1[k]==s_list[i]:
+                        for idx in range(k+1,len(s_temp1)):
+                            s_temp.append(s_temp1[idx])
+                        break    
+                s_temp1 = s_temp            
+                s_temp1.append(s_list[i])
+            if i == len(s_list)-1:
+                s_temp2.append(s_temp1)
+            
+        length_max = []
+        for j in range(len(s_temp2)):
+            if len(length_max)<len(s_temp2[j]):
+                length_max = s_temp2[j]
+ 
+        return len(length_max)
