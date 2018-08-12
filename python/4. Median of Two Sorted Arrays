@@ -1,0 +1,22 @@
+class Solution:
+    def findMedianSortedArrays(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: float
+        """
+        num = []
+        for i in range(len(nums1)):
+            num.append(nums1[i])
+        for i in range(len(nums2)):
+            num.append(nums2[i])
+        
+        num = sorted(num)
+        print(num)
+        if len(num) == 1:
+            median = num[0]
+        elif len(num)%2 == 1:
+            median = num[int(len(num)/2)]
+        else:
+            median = (num[int(len(num)/2)-1]+num[int(len(num)/2)])/2
+        return median
